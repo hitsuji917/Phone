@@ -126,7 +126,6 @@ export default function Desktop() {
               dragElastic={0.1}
               whileDrag={{ scale: 1.2, zIndex: 100 }} // Ensure high z-index when dragging
               onDragEnd={(e, info) => handleDragEnd(e, info, app.id)}
-              onLongPress={() => {}}
               // Using onPointerDown/Up for long press simulation
               onPointerDown={() => {
                 const timer = setTimeout(() => setIsEditing(true), 500);
