@@ -55,10 +55,6 @@ export default function Desktop() {
             dropPoint.y >= dockRect.top && 
             dropPoint.y <= dockRect.bottom
         ) {
-            // Rebound logic is handled by framer-motion's layout animation automatically 
-            // if we don't update state.
-            // But to be explicit: we do NOTHING here, so it snaps back to original position
-            // because we haven't reordered the 'apps' state.
             return;
         }
     }
@@ -83,6 +79,12 @@ export default function Desktop() {
         }
       }
     }
+  };
+
+  const handleDeleteApp = (appId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const newLayout = desktopLayout.filter(id => id !== appId);
+    updateDesktopLayout(newLayout);
   };
 
   return (
@@ -128,7 +130,7 @@ export default function Desktop() {
               onDragEnd={(e, info) => handleDragEnd(e, info, app.id)}
               // Using onPointerDown/Up for long press simulation
               onPointerDown={() => {
-                const timer = setTimeout(() => setIsEditing(true), 500);
+                const timer = setTimeout(() => setIsEditing(true), 1500);
                 (window as any)._longPressTimer = timer;
               }}
               onPointerUp={() => {
@@ -145,11 +147,14 @@ export default function Desktop() {
                 }}
                 className={`relative transition-transform ${isEditing ? 'animate-wobble' : ''}`}
               >
-                {/* Delete Badge (Visual only for now) */}
+                {/* Delete Badge */}
                 {isEditing && !app.isSystem && (
-                  <div className="absolute -top-2 -left-2 w-5 h-5 bg-gray-400/80 rounded-full flex items-center justify-center text-white z-20">
-                    <span className="text-xs font-bold">-</span>
-                  </div>
+                  <button 
+                    className="absolute -top-2 -left-2 w-5 h-5 bg-gray-400/80 rounded-full flex items-center justify-center text-white z-20 hover:bg-red-500 transition-colors"
+                    onClick={(e) => handleDeleteApp(app.id, e)}
+                  >
+                    <LucideIcons.X className="w-3 h-3" />
+                  </button>
                 )}
 
                 <div className="w-[60px] h-[60px] bg-white rounded-[14px] flex items-center justify-center shadow-lg relative overflow-hidden group-active:scale-95 transition-transform duration-100">

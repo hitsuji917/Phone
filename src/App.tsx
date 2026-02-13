@@ -9,6 +9,7 @@ import ThemeApp from './apps/ThemeStudio/ThemeApp';
 
 // OS
 import Desktop from './os/Desktop';
+import DynamicIsland from './os/components/DynamicIsland';
 
 function GlobalStyleInjector() {
   const { fontUrl, fontFamily } = useOSStore();
@@ -129,6 +130,7 @@ function App() {
     <BrowserRouter>
       <GlobalStyleInjector />
       <WallpaperLayer />
+      <DynamicIsland />
       <AnimatedRoutes />
     </BrowserRouter>
   );
