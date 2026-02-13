@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, Save, RotateCcw, Droplet, Sparkles, Minus } from 'lucide-react';
+import { ChevronLeft, RotateCcw, Droplet, Sparkles, Minus } from 'lucide-react';
 
 const PRESETS = [
   {
